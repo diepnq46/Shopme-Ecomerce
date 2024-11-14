@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/ShopmeFrontEnd/src/main/resources/templates/secret.yml

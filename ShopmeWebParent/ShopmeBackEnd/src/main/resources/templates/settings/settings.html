@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head>
+    <head th:replace="fragments :: page_head('Cài đặt - Shopme Admin', 'tag')"></head>
+    <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}"/>
+    <script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div>
+        <h2>Cài đặt trang web</h2>
+    </div>
+    <div>
+        <ul class="nav nav-tabs" id="settingTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#general" data-toggle="tab" role="tab">Chung</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#countries"
+                        role="tab">Quốc gia
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#states"
+                        role="tab">Vùng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#mailServer"
+                        role="tab">Mail Server
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#mailTemplate" type="button"
+                        role="tab">Thư mẫu
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane p-3 active" id="general" role="tabpanel">
+                <div th:replace="settings/general :: content"></div>
+            </div>
+            <div class="tab-pane p-3" id="countries" role="tabpanel">
+                <div th:replace="settings/countries :: content"></div>
+            </div>
+            <div class="tab-pane p-3" id="states" role="tabpanel">
+                <div th:replace="settings/states :: content"></div>
+            </div>
+            <div class="tab-pane p-3" id="mailServer" role="tabpanel">
+                <div th:replace="settings/mail_server :: content"></div>
+            </div>
+            <div class="tab-pane p-3" id="mailTemplate" role="tabpanel">
+               <div th:replace="settings/mail_template/mail_template :: content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer"></div>
+
+</div>
+
+<script type="text/javascript">
+    MAX_FILE_SIZE = 204800;
+    var customerVerificationContent;
+    var contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+
+    $(document).ready(function () {
+        customerVerificationContent = $("#customerVerificationContent");
+        customerVerificationContent.richText();
+    })
+</script>
+<script th:src="@{/js/common_form.js}"></script>
+<script th:src="@{/js/countries_setting.js}"></script>
+<script th:src="@{/js/states_setting.js}"></script>
+</body>
+</html>

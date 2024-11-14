@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments :: page_head('Quản lý khách hàng - Shopme Admin', 'none')"></head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+
+    <div>
+        <h2>Quản lý người dùng</h2>
+        <a th:href="@{/customers/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2" title="Xuất ra CSV"></a>
+
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div th:if="${messageError != null}" class="alert alert-danger text-center">
+        [[${messageError}]]
+    </div>
+
+    <div th:replace="fragments :: search_form('customers')"></div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th th:replace="fragments :: column_link('customers', 'id', 'ID')"/>
+                <th th:replace="fragments :: column_link('customers', 'lastName', 'Họ tên đệm')"/>
+                <th th:replace="fragments :: column_link('customers', 'firstName', 'Tên')"/>
+                <th th:replace="fragments :: column_link('customers', 'email', 'E-mail')"/>
+                <th th:replace="fragments :: column_link('customers', 'city', 'Thành phố')"/>
+                <th th:replace="fragments :: column_link('customers', 'state', 'Vùng/Tỉnh')"/>
+                <th th:replace="fragments :: column_link('customers', 'country', 'Quốc gia')"/>
+                <th th:replace="fragments :: column_link('customers', 'enabled', 'Đã kích hoạt')"/>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${listCustomers}">
+                <td>[[${customer.id}]]</td>
+                <td>[[${customer.lastName}]]</td>
+                <td>[[${customer.firstName}]]</td>
+                <td>[[${customer.email}]]</td>
+                <td>[[${customer.city}]]</td>
+                <td>[[${customer.state}]]</td>
+                <td>[[${customer.country.name}]]</td>
+                <td th:replace="fragments :: status(${customer.enabled}, '/customers/' + ${customer.id}, 'khách hàng')">
+                </td>
+                <td>
+                    <a class="fas fa-file-alt fa-2x icon-green link-detail"
+                       th:href="@{'/customers/detail/' + ${customer.id}}"
+                       title="Xem chi tiết khách hàng này"></a>
+                    &nbsp;
+                    <div th:replace="fragments :: edit('customers', 'khách hàng', ${customer.id} ,true)"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="less-details">
+        <div th:each="customer : ${listCustomers}" class="row m-1">
+            <div class="col-4">
+                <b>[[${customer.fullName}]]</b>
+            </div>
+            <div class="col-8">
+                <div>
+                    <div>
+                        [[${customer.country.name}]]
+                    </div>
+                    <a th:if="${customer.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+                       th:href="@{'/customers/' + ${customer.id} + '/enabled/false'}"
+                       title="Vô hiệu hóa khách hàng này"></a>
+                    <a th:if="${customer.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+                       th:href="@{'/customers/' + ${customer.id} + '/enabled/true'}" title="Kích hoạt khách hàng này"></a>
+                    &nbsp;
+                    <a class="fas fa-file-alt fa-2x icon-green link-detail"
+                       th:href="@{'/customers/detail/' + ${customer.id}}"
+                       title="Xem chi tiết khách hàng này"></a>
+                    &nbsp;
+                    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/customers/update/' + ${customer.id}}"
+                       title="Cập nhật khách hàng này"></a>
+                    &nbsp;
+                    <a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/customers/delete/' + ${customer.id}}"
+                       title="Xóa khách hàng này"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: pagination('customers', 'khách hàng')"></div>
+    <div th:replace="fragments :: footer"></div>
+
+
+    <div th:replace="modal_fragments :: confirm_modal"></div>
+    <div class="modal fade" id="detailModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/customers}]]";
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), "khách hàng");
+        });
+
+        $(".link-detail").on("click", function (e) {
+            e.preventDefault();
+            linkDetailURL = $(this).attr("href");
+
+            $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="content">
+    <div>
+        <p>
+            Trang này sử dụng để quản lý các tỉnh/thành phố sẽ được chọn bởi người dùng trong form đăng ký của khách
+            hàng. Đầu tiên hãy bấm vào Tải lên danh sách quốc gia
+        </p>
+    </div>
+    <div>
+        <input id="buttonLoadCountriesForStates" type="button" class="btn btn-primary m-2"
+               value="Tải lên danh sách quốc gia">
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Quốc gia đã chọn:</label>
+        <div class="col-sm-10">
+            <select class="form-control m-2" id="dropdownCountryForStates">
+
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Tất cả các vùng/tỉnh:</label>
+        <div class="col-sm-10">
+            <select class="form-control m-2" style="height: 300px" size="3" id="dropdownSates">
+
+            </select>
+        </div>
+    </div>
+    <form id="formState">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label mt-2" id="labelStateName">Tên tỉnh:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control mt-2" id="fieldStateName" required minlength="3" maxlength="45">
+            </div>
+            <div class="col-lg-4 mt-2">
+                <input type="button" id="buttonAddState" value="Thêm" class="btn btn-secondary mr-2">
+                <input type="button" id="buttonUpdateSate" value="Cập nhật" class="btn btn-secondary mr-2"
+                       disabled="disabled">
+                <input type="button" id="buttonDeleteState" value="Xóa" class="btn btn-secondary mr-2"
+                       disabled="disabled">
+            </div>
+        </div>
+    </form>
+    <div class="toast justify-content-center d-flex" role="alert" aria-live="polite" aria-atomic="true"
+         data-delay="3000">
+        <div role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body">
+                <span id="toastMessageState">
+
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

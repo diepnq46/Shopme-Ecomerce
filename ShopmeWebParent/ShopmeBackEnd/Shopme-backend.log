@@ -1,0 +1,51 @@
+2024-10-14T22:34:30.621+07:00 DEBUG 23132 --- [ShopmeBackEnd] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /images/image-thumbnail.png
+2024-10-14T22:34:30.621+07:00 DEBUG 23132 --- [ShopmeBackEnd] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /category-images/8/computer memory.png
+2024-10-14T22:34:30.621+07:00 DEBUG 23132 --- [ShopmeBackEnd] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /category-images/2/laptop computers.png
+2024-10-14T22:34:30.621+07:00 DEBUG 23132 --- [ShopmeBackEnd] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /category-images/11/internal hard drive.png
+2024-10-14T22:34:30.622+07:00 DEBUG 23132 --- [ShopmeBackEnd] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /webfonts/fa-solid-900.woff2
+2024-10-14T22:34:30.625+07:00 DEBUG 23132 --- [ShopmeBackEnd] [http-nio-8080-exec-2] w.c.HttpSessionSecurityContextRepository : Retrieved SecurityContextImpl [Authentication=RememberMeAuthenticationToken [Principal=security.com.shopme.UserDetailsConfig@4f6d2b82, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[Admin]]]
+2024-10-14T22:34:30.626+07:00 DEBUG 23132 --- [ShopmeBackEnd] [http-nio-8080-exec-2] s.s.w.a.r.RememberMeAuthenticationFilter : SecurityContextHolder not populated with remember-me token, as it already contained: 'RememberMeAuthenticationToken [Principal=security.com.shopme.UserDetailsConfig@4f6d2b82, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[Admin]]'
+2024-10-14T22:34:30.626+07:00 DEBUG 23132 --- [ShopmeBackEnd] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /webfonts/fa-solid-900.woff2
+2024-10-14T22:34:58.952+07:00  INFO 23132 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-14T22:34:58.956+07:00  INFO 23132 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-14T22:34:58.958+07:00  INFO 23132 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-15T08:38:25.164+07:00  INFO 18160 --- [ShopmeBackEnd] [main] c.s.a.category.CategoryRepositoryTest    : Starting CategoryRepositoryTest using Java 22.0.1 with PID 18160 (started by admin in D:\Java\ShopmeProject\ShopmeWebParent\ShopmeBackEnd)
+2024-10-15T08:38:25.172+07:00  INFO 18160 --- [ShopmeBackEnd] [main] c.s.a.category.CategoryRepositoryTest    : No active profile set, falling back to 1 default profile: "default"
+2024-10-15T08:38:25.654+07:00  INFO 18160 --- [ShopmeBackEnd] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-15T08:38:25.738+07:00  INFO 18160 --- [ShopmeBackEnd] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 3 JPA repository interfaces.
+2024-10-15T08:38:26.214+07:00  INFO 18160 --- [ShopmeBackEnd] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-15T08:38:26.303+07:00  INFO 18160 --- [ShopmeBackEnd] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-10-15T08:38:26.343+07:00  INFO 18160 --- [ShopmeBackEnd] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-15T08:38:26.665+07:00  INFO 18160 --- [ShopmeBackEnd] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-15T08:38:26.703+07:00  INFO 18160 --- [ShopmeBackEnd] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-15T08:38:26.940+07:00  INFO 18160 --- [ShopmeBackEnd] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5aa76ad2
+2024-10-15T08:38:26.941+07:00  INFO 18160 --- [ShopmeBackEnd] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-15T08:38:26.983+07:00  WARN 18160 --- [ShopmeBackEnd] [main] org.hibernate.dialect.Dialect            : HHH000511: The 11.22.0 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2024-10-15T08:38:26.991+07:00  WARN 18160 --- [ShopmeBackEnd] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-15T08:38:27.914+07:00  INFO 18160 --- [ShopmeBackEnd] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-15T08:38:28.019+07:00  INFO 18160 --- [ShopmeBackEnd] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-15T08:38:28.318+07:00  INFO 18160 --- [ShopmeBackEnd] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-10-15T08:38:28.947+07:00  INFO 18160 --- [ShopmeBackEnd] [main] c.s.a.category.CategoryRepositoryTest    : Started CategoryRepositoryTest in 4.365 seconds (process running for 5.79)
+2024-10-15T08:38:29.620+07:00  INFO 18160 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-15T08:38:29.622+07:00  INFO 18160 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-15T08:38:29.625+07:00  INFO 18160 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-15T08:38:38.739+07:00  INFO 14620 --- [ShopmeBackEnd] [main] c.s.a.category.CategoryRepositoryTest    : Starting CategoryRepositoryTest using Java 22.0.1 with PID 14620 (started by admin in D:\Java\ShopmeProject\ShopmeWebParent\ShopmeBackEnd)
+2024-10-15T08:38:38.741+07:00  INFO 14620 --- [ShopmeBackEnd] [main] c.s.a.category.CategoryRepositoryTest    : No active profile set, falling back to 1 default profile: "default"
+2024-10-15T08:38:39.118+07:00  INFO 14620 --- [ShopmeBackEnd] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-15T08:38:39.185+07:00  INFO 14620 --- [ShopmeBackEnd] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 3 JPA repository interfaces.
+2024-10-15T08:38:39.509+07:00  INFO 14620 --- [ShopmeBackEnd] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-15T08:38:39.558+07:00  INFO 14620 --- [ShopmeBackEnd] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-10-15T08:38:39.586+07:00  INFO 14620 --- [ShopmeBackEnd] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-15T08:38:39.860+07:00  INFO 14620 --- [ShopmeBackEnd] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-15T08:38:39.889+07:00  INFO 14620 --- [ShopmeBackEnd] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-15T08:38:39.996+07:00  INFO 14620 --- [ShopmeBackEnd] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7ac48e10
+2024-10-15T08:38:39.997+07:00  INFO 14620 --- [ShopmeBackEnd] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-15T08:38:40.022+07:00  WARN 14620 --- [ShopmeBackEnd] [main] org.hibernate.dialect.Dialect            : HHH000511: The 11.22.0 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2024-10-15T08:38:40.028+07:00  WARN 14620 --- [ShopmeBackEnd] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-15T08:38:40.864+07:00  INFO 14620 --- [ShopmeBackEnd] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-15T08:38:40.949+07:00  INFO 14620 --- [ShopmeBackEnd] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-15T08:38:41.200+07:00  INFO 14620 --- [ShopmeBackEnd] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-10-15T08:38:41.791+07:00  INFO 14620 --- [ShopmeBackEnd] [main] c.s.a.category.CategoryRepositoryTest    : Started CategoryRepositoryTest in 3.624 seconds (process running for 4.594)
+2024-10-15T08:38:42.360+07:00  INFO 14620 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-15T08:38:42.362+07:00  INFO 14620 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-15T08:38:42.365+07:00  INFO 14620 --- [ShopmeBackEnd] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

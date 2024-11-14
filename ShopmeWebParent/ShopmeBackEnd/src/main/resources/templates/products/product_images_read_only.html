@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="row">
+        <div class="col border m-3 p-2">
+            <div><label>Ảnh đại diện: [[${product.mainImage}]]</label></div>
+            <div>
+                <img alt="Xem trước ảnh đại diện" class="img-fluid"
+                     th:src="@{${product.mainImagePath}}">
+            </div>
+        </div>
+
+        <th:block th:each="productImage, status : ${product.images}">
+            <div class="col border m-3 p-2">
+                <div>
+                    <label>Ảnh bổ sung #[[${status.index + 1}]]: [[${productImage.name}]]</label>
+                </div>
+                <div class="m-2">
+                    <img th:alt="'Xem trước ảnh bổ sung #' + ${status.index + 1}"
+                         class="img-fluid"
+                         th:src="@{${productImage.imagePath}}">
+                </div>
+            </div>
+        </th:block>
+    </div>
+</body>
+</html>

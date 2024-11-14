@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments :: page_head('Quản lý danh mục - Shopme Admin', 'none')"></head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+
+    <div>
+        <h2>Quản lý danh mục</h2>
+        <a th:href="@{/categories/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2" title="Tạo danh mục mới"></a>
+
+        <a th:href="@{/categories/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2" title="Xuất ra CSV"></a>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div th:if="${messageError != null}" class="alert alert-danger text-center">
+        [[${messageError}]]
+    </div>
+    <div th:replace="fragments :: search_form('categories')">
+
+    </div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-white">ID</th>
+                <th class="text-white">Ảnh</th>
+                <th class="text-white" th:replace="fragments :: column_link('categories', 'name', 'Tên danh mục')">
+                </th>
+                <th class="text-white">Đường dẫn</th>
+                <th class="text-white">Đã kích hoạt</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td>[[${category.id}]]</td>
+                <td>
+                    <img th:src="@{${category.imagePath}}" style="width: 100px"/>
+                </td>
+                <td>[[${category.name}]]</td>
+                <td>[[${category.alias}]]</td>
+                <td th:replace="fragments :: status(${category.enabled}, '/categories/' + ${category.id}, 'danh mục')"></td>
+                <td>
+                    <div th:replace="fragments :: edit('categories', 'danh mục', ${category.id} ,${!category.hasChildren})"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="less-details">
+        <div th:each="category : ${categories}" class="row m-1">
+            <div class="col-4">
+                <img th:src="@{${category.imagePath}}" style="width: 100px">
+            </div>
+            <div class="col-8">
+                <div>[[${category.name}]]</div>
+                <div class="mt-1">
+                    <a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+                       th:href="@{'/categories/' + ${category.id} + '/enabled/false'}"
+                       title="Vô hiệu hóa danh mục này"></a>
+                    <a th:if="${category.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+                       th:href="@{'/categories/' + ${category.id} + '/enabled/true'}"
+                       title="Kích hoạt danh mục này"></a>
+                    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/update/' + ${category.id}}"
+                       title="Cập nhật danh mục này"></a>
+                    &nbsp;
+                    <a class="fas fa-trash fa-2x icon-red link-delete"
+                       th:href="@{'/categories/delete/' + ${category.id}}"
+                       title="Xóa danh mục này"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${keyword != null}" class="text-center">
+        <span class="text-center">Kết quả tìm kiếm không hiển thị danh mục theo phân cấp</span>
+        <div th:replace="fragments :: pagination('categories', 'danh mục')"></div>
+    </div>
+    <th:block th:unless="${keyword != null}">
+        <div th:replace="fragments :: pagination('categories', 'danh mục cấp cao nhất')"></div>
+    </th:block>
+
+
+    <div th:replace="fragments :: footer"></div>
+
+
+    <div th:replace="modal_fragments :: confirm_modal"></div>
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/categories}]]";
+    MAX_FILE_SIZE = 102400;
+
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), "danh mục");
+        });
+    });
+</script>
+</body>
+</html>

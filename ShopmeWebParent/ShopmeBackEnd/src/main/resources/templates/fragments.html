@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="page_head(title, remove)" th:remove="${remove}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initital-scale=1.0, minimum-scale=1.0">
+    <title>[[${title}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/commons.js}"></script>
+</head>
+<body>
+<th th:fragment="column_link(moduleURL, fieldName, columnLabel)">
+    <a class="text-white"
+       th:href="@{|/${moduleURL}/page/${currentPage}?sortField=${fieldName}&sortDir=${sortField != fieldName ? sortDir : reverseSortDir}${keyword != null ? '&keyword=' + keyword : ''}|}">
+        [[${columnLabel}]]
+    </a>
+    <span th:if="${sortField == fieldName}"
+          th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+        </span>
+</th>
+
+<div th:fragment="search_form(moduleURL)">
+    <form th:action="@{|/${moduleURL}/page/1|}" class="form-inline m-3">
+        <input type="hidden" name="sortField" th:value="${sortField}"/>
+        <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+        Tìm kiếm:&nbsp;
+        <input type="search" name="keyword" class="form-control" required/>
+        <button type="submit" value="Tìm" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+        &nbsp;&nbsp;
+        <button type="button" value="Xóa" class="btn btn-secondary" onclick="clearFilter()">
+            <i class="fas fa-eraser"></i>
+        </button>
+    </form>
+</div>
+
+<div class="text-center m-1">
+		<span th:if="${totalItems > 0}">
+			Hiển thị người dùng từ # [[${startCount}]] đến [[${endCount}]] trên [[${totalItems}]]
+		</span>
+    <span th:unless="${totalItems > 0}">
+			Không tìm thấy người dùng nào
+		</span>
+</div>
+
+<div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">
+    <div class="text-center m-1">
+		<span th:if="${totalItems > 0}">
+			Hiển thị [[${entityName}]] từ # [[${startCount}]] đến [[${endCount}]] trên [[${totalItems}]]
+		</span>
+        <span th:unless="${totalItems > 0}">
+			Không tìm thấy [[${entityName}]] nào
+		</span>
+    </div>
+    <nav th:if="${totalItems > 0 && totalPages > 1}">
+        <ul class="pagination justify-content-center">
+            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                <a th:replace="fragments :: page_link(${moduleURL} ,1, 'Đầu')"/>
+            </li>
+            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                <a th:replace="fragments :: page_link(${moduleURL} ,${currentPage - 1}, 'Trước')"/>
+            </li>
+            <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
+                th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a th:replace="fragments :: page_link(${moduleURL}, ${i}, ${i})"/>
+            </li>
+            <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'} ">
+                <a th:replace="fragments :: page_link(${moduleURL}, ${currentPage + 1}, 'Sau')"/>
+            </li>
+            <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                <a th:replace="fragments :: page_link(${moduleURL}, ${totalPages}, 'Cuối')"/>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<td th:fragment="status(enabled, entityURL, entityName)">
+    <a th:if="${enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+       th:href="@{|${entityURL}/enabled/false|}"
+       th:title="${'Vô hiệu hóa ' + entityName + ' này'}">
+
+    </a>
+    <a th:if="${enabled == false}" class="fas fa-circle fa-2x icon-dark"
+       th:href="@{|${entityURL}/enabled/true|}"
+       th:title="${'Kích hoạt ' + entityName + ' này'}">
+    </a>
+</td>
+
+
+<div th:remove="tag" th:fragment="edit(moduleURL, entityName, entityId ,visible)">
+    <a class="fas fa-edit fa-2x icon-green" th:href="@{|/${moduleURL}/update/${entityId}|}"
+       th:title="${'Cập nhật ' + entityName + ' này'}"></a>
+    &nbsp;
+
+    <th:block th:if="${visible}">
+        <a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{|/${moduleURL}/delete/${entityId}|}"
+           th:title="${'Xóa ' + entityName + ' này'}"></a>
+    </th:block>
+</div>
+
+<a th:fragment="page_link(moduleURL, pageNumber, label)" class="page-link"
+   th:href="@{|/${moduleURL}/page/${pageNumber}?sortField=${sortField}&sortDir=${sortDir}${keyword != null ? '&keyword=' + keyword : ''}${categoryId != null ? '&categoryId=' + categoryId : ''}|}">
+    [[${label}]]
+</a>
+
+<div th:fragment="footer" class="text-center">
+    <p>Shopme Control Panel - Copyright &copy; Shopme</p>
+</div>
+</body>
+</html>

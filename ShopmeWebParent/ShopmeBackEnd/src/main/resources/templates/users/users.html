@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments :: page_head('Quản lý người dùng - Shopme Admin', 'none')"></head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+
+    <div>
+        <h2>Quản lý người dùng</h2>
+        <a th:href="@{/users/new}" class="fas fa-user-plus fa-2x icon-dark mr-2" title="Tạo người dùng mới"></a>
+
+        <a th:href="@{/users/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2" title="Xuất ra CSV"></a>
+
+        <a th:href="@{/users/export/excel}" class="fas fa-file-excel fa-2x icon-dark mr-2" title="Xuất ra Excel"></a>
+
+        <a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark mr-2" title="Xuất ra PDF"></a>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div th:if="${messageError != null}" class="alert alert-danger text-center">
+        [[${messageError}]]
+    </div>
+
+    <div th:replace="fragments :: search_form('users')"></div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th th:replace="fragments :: column_link('users', 'id', 'ID người dùng')"/>
+                <th th:replace="fragments :: column_link('users', 'email', 'E-mail')"/>
+                <th>Ảnh đại diện</th>
+                <th th:replace="fragments :: column_link('users', 'lastName', 'Họ tên đệm')"/>
+                <th th:replace="fragments :: column_link('users', 'firstName', 'Tên')"/>
+                <th>Vai trò</th>
+                <th th:replace="fragments :: column_link('users', 'enabled', 'Đã kích hoạt')"/>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${listUsers}">
+                <td>[[${user.id}]]</td>
+                <td>[[${user.email}]]</td>
+                <td>
+                    <img th:src="@{${user.photosImagePath}}" style="width: 100px">
+                </td>
+                <td>[[${user.lastName}]]</td>
+                <td>[[${user.firstName}]]</td>
+                <td>[[${user.roles}]]</td>
+                <td th:replace="fragments :: status(${user.enabled}, '/users/' + ${user.id}, 'người dùng')">
+                </td>
+                <td>
+                    <div th:replace="fragments :: edit('users', 'người dùng', ${user.id} ,true)"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="less-details">
+        <div th:each="user : ${listUsers}" class="row m-1">
+            <div class="col-4">
+                <img th:src="@{${user.photosImagePath}}" style="width: 100px">
+            </div>
+            <div class="col-8">
+                <div>[[${user.fullName}]]</div>
+                <div>[[${user.roles}]]</div>
+                <div class="mt-1">
+                    <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+                       th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Vô hiệu hóa người dùng này"></a>
+                    <a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+                       th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Kích hoạt người dùng này"></a>
+                    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/update/' + ${user.id}}"
+                       title="Cập nhật người dùng này"></a>
+                    &nbsp;
+                    <a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/users/delete/' + ${user.id}}"
+                       title="Xóa người dùng này"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: pagination('users', 'người dùng')"></div>
+    <div th:replace="fragments :: footer"></div>
+
+
+    <div th:replace="modal_fragments :: confirm_modal"></div>
+</div>
+
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/users}]]";
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), "người dùng");
+            // $("#yesButton").attr("href", $(this).attr("href"));
+            // $("#confirmText").text("Bạn chắc chắc muốn xóa " + "người dùng" + " này?");
+            // $("#confirmModal").modal();
+        });
+    });
+</script>
+</body>
+</html>

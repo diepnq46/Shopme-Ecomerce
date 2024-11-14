@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="fragments :: page_head('Quản lý sản phẩm - Shopme Admin', 'none')"></head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+
+    <div>
+        <h2>Quản lý sản phẩm</h2>
+        <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+            <a th:href="@{/products/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2" title="Tạo sản phẩm mới"></a>
+            <a th:href="@{/products/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2" title="Xuất ra CSV"></a>
+        </th:block>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div th:if="${messageError != null}" class="alert alert-danger text-center">
+        [[${messageError}]]
+    </div>
+    <div>
+        <form th:action="@{/products/page/1}" class="form-inline m-3" id="searchForm">
+            <input type="hidden" name="sortField" th:value="${sortField}"/>
+            <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+            Danh mục:&nbsp;
+            <select class="form-control" name="categoryId" id="dropDownCategory">
+                <option value="0">Tất cả</option>
+                <option th:each="category : ${categories}" th:value="${category.id}"
+                        th:selected="${category.id == categoryId}"
+                >
+                    [[${category.name}]]
+                </option>
+            </select>
+            &nbsp;
+            Tìm kiếm:&nbsp;
+            <input type="search" name="keyword" class="form-control" required/>
+            &nbsp;&nbsp;
+            <button type="submit" value="Tìm" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" value="Xóa" class="btn btn-secondary" onclick="clearFilter()">
+                <i class="fas fa-eraser"></i>
+            </button>
+        </form>
+    </div>
+
+
+
+<div class="full-details">
+    <table class="table table-bordered table-striped table-hover table-responsive-xl">
+        <thead class="thead-dark">
+        <tr>
+            <th class="text-white">ID</th>
+            <th class="text-white">Ảnh đại diện</th>
+            <th th:replace="fragments :: column_link('products', 'name', 'Tên sản phẩm')">
+            </th>
+            <th th:replace="fragments :: column_link('products', 'brand', 'Nhãn hàng')"></th>
+            <th th:replace="fragments :: column_link('products', 'category', 'Danh mục')"></th>
+            <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                <th th:replace="fragments :: column_link('products', 'enabled', 'Đã kích hoạt')"></th>
+            </th:block>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td>[[${product.id}]]</td>
+            <td>
+                <img th:src="@{${product.mainImagePath}}" style="width: 100px">
+            </td>
+            <td>
+                <a th:href="@{'/products/detail/' + ${product.id}}"
+                   class="link-detail"
+                   title="Xem chi tiết sản phẩm này">
+                    [[${product.shortName}]]
+                </a>
+
+            </td>
+            <td>
+                [[${product.brand.name}]]
+            </td>
+            <td>
+                [[${product.category.name}]]
+            </td>
+            <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                <td th:replace="fragments :: status(${product.enabled}, ${'/products/' + product.id}, 'sản phẩm')">
+            </th:block>
+            </td>
+            <td>
+                <a class="fas fa-file-alt fa-2x icon-green link-detail"
+                   th:href="@{'/products/detail/' + ${product.id}}"
+                   title="Xem chi tiết sản phẩm này"></a>
+                &nbsp;
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
+                    <a class="fas fa-edit fa-2x icon-green" th:href="@{|/products/update/${product.id}|}"
+                       th:title="${'Cập nhật sản phẩm này'}"></a>
+                    &nbsp;
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{|/${moduleURL}/delete/${entityId}|}"
+                       th:title="${'Xóa sản phẩm này'}"></a>
+                </th:block>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="less-details">
+    <div th:each="product : ${products}" class="row m-1">
+        <div class="col-4">
+            <img th:src="@{${product.mainImagePath}}" style="width: 100px">
+        </div>
+        <div class="col-8">
+            <div>
+                <a th:href="@{'/products/detail/' + ${product.id}}"
+                   class="link-detail"
+                   title="Xem chi tiết sản phẩm này">
+                    [[${product.shortName}]]
+                </a>
+            </div>
+            <div class="mt-1">
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <a th:if="${product.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+                       th:href="@{'/products/' + ${product.id} + '/enabled/false'}"
+                       title="Vô hiệu hóa sản phẩm này"></a>
+                    <a th:if="${product.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+                       th:href="@{'/products/' + ${product.id} + '/enabled/true'}" title="Kích hoạt sản phâm này"></a>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
+                    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/products/update/' + ${product.id}}"
+                       title="Cập nhật sản phẩm này"></a>
+                    &nbsp;
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/products/delete/' + ${product.id}}"
+                       title="Xóa sản phẩm này"></a>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div th:replace="fragments :: pagination('products', 'sản phẩm')"></div>
+
+<div th:replace="fragments :: footer"></div>
+
+<div th:replace="modal_fragments :: confirm_modal"></div>
+
+<div class="modal fade" id="detailModal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/products}]]";
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), "sản phẩm");
+        });
+
+        $(".link-detail").on("click", function (e) {
+            e.preventDefault();
+            linkDetailURL = $(this).attr("href");
+
+            $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+
+        });
+
+
+        $("#dropDownCategory").change(function () {
+            $("#searchForm").submit();
+        })
+    });
+</script>
+</body>
+</html>

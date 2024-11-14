@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="content">
+    <div>
+        <p>
+            Trang này sử dụng để quản lý các quốc gia hiển thị trong form đăng ký của khách hàng. Đầu tiên hãy bấm vào
+            Tải lên danh sách quốc gia
+        </p>
+    </div>
+    <div>
+        <input id="buttonLoadCountries" type="button" class="btn btn-primary m-2" value="Tải lên danh sách quốc gia">
+    </div>
+    <div>
+        <select class="form-control m-2" style="height: 300px" size="3" id="dropdownCountries">
+
+        </select>
+    </div>
+    <form id="formCountry">
+        <div class="form-group row ml-2">
+            <label class="col-form-label mt-2" id="labelCountryName">Tên quốc gia:</label>
+            <div class="col-md">
+                <input type="text" class="form-control mt-2" id="fieldCountryName" required minlength="3"
+                       maxlength="45">
+            </div>
+            <label class="col-form-label mt-2" id="labelCountryCode">Mã quốc gia:</label>
+            <div class="col-md">
+                <input type="text" class="form-control mt-2" id="fieldCountryCode" required minlength="2" maxlength="3">
+            </div>
+            <div class="col-lg-4 mt-2">
+                <input type="button" id="buttonAddCountry" value="Thêm" class="btn btn-secondary mr-2">
+                <input type="button" id="buttonUpdateCountry" value="Cập nhật" class="btn btn-secondary mr-2"
+                       disabled="disabled">
+                <input type="button" id="buttonDeleteCountry" value="Xóa" class="btn btn-secondary mr-2"
+                       disabled="disabled">
+            </div>
+        </div>
+    </form>
+    <div class="toast justify-content-center d-flex" role="alert" aria-live="polite" aria-atomic="true"
+         data-delay="3000">
+        <div role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body">
+                <span id="toastMessage">
+
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

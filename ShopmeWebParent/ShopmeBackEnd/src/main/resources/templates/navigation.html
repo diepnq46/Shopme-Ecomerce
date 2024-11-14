@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="menu">
+    <div>
+        <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+            <input type="submit"/>
+        </form>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/ShopmeAdminSmall.png}"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="topNavbar">
+            <ul class="navbar-nav">
+                <th:block sec:authorize="hasAuthority('Admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           th:href="@{/users}"
+                           data-toggle="dropdown">
+                            Người dùng
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" th:href="@{/users/new}">Thêm mới</a>
+                            <a class="dropdown-item" th:href="@{/users}">Xem tất cả</a>
+                        </div>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           th:href="@{/categories}"
+                           data-toggle="dropdown">
+                            Danh mục
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" th:href="@{/categories/new}">Thêm mới</a>
+                            <a class="dropdown-item" th:href="@{/categories}">Xem tất cả</a>
+                        </div>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           th:href="@{/brands}"
+                           data-toggle="dropdown">
+                            Nhãn hàng
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" th:href="@{/brands/new}">Thêm mới</a>
+                            <a class="dropdown-item" th:href="@{/brands}">Xem tất cả</a>
+                        </div>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson', 'Shipper')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           th:href="@{/products}"
+                           data-toggle="dropdown">
+                            Sản phẩm
+                        </a>
+                        <div class="dropdown-menu">
+                            <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                                <a class="dropdown-item" th:href="@{/products/new}">Thêm mới</a>
+                            </th:block>
+                            <a class="dropdown-item" th:href="@{/products}">Xem tất cả</a>
+                        </div>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Assistant')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/reviews}">Đánh giá</a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Assistant')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/questions}">Câu hỏi</a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/customers}">Khách hàng</a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/shipping}">Vận chuyển</a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/report}">Báo cáo bán hàng</a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/orders}">Đơn hàng</a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <li class="navbar-item">
+                        <a class="nav-link" th:href="@{/articles}">Bài viết</a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                    <li class="navbar-item">
+                        <a class="nav-link" th:href="@{/menus}">Menu</a>
+                    </li>
+                </th:block>
+                <li class="navbar-item dropdown" sec:authorize="hasAuthority('Admin')">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/settings}">Cài đặt</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/settings#general}">Chung</a>
+                        <a class="dropdown-item" th:href="@{/settings#countries}">Quốc gia</a>
+                        <a class="dropdown-item" th:href="@{/settings#states}">Vùng</a>
+                        <a class="dropdown-item" th:href="@{/settings#mailServer}">Máy chủ thư</a>
+                        <a class="dropdown-item" th:href="@{/settings#mailTemplate}">Thư mẫu</a>
+                    </div>
+                </li>
+
+                <li>
+                    <span class="fas fa-user fa-2x icon-dark"></span>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       th:href="@{/account}"
+                       data-toggle="dropdown"
+                       sec:authentication="principal.fullname"></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" id="logoutLink" href="">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

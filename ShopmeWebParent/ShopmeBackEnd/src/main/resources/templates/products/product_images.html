@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="row" id="divProductImages">
+        <div class="col border m-3 p-2">
+            <div><label>Ảnh đại diện: [[${product.mainImage}]]</label></div>
+            <div>
+                <img id="thumbnail" alt="Xem trước ảnh đại diện" class="img-fluid"
+                     th:src="@{${product.mainImagePath}}">
+                <input type="file" id="fileImage" name="fileImage" th:required="${product.mainImage == null}"
+                       accept="image/png, image/jpeg">
+            </div>
+            <input type="hidden" th:field="*{mainImage}">
+        </div>
+        <th:block th:each="productImage, status : ${product.images}">
+            <div class="col border m-3 p-2" th:id="'divExtraImage' + ${status.index}">
+                <div>
+                    <label>Ảnh bổ sung #[[${status.index + 1}]]: [[${productImage.name}]]</label>
+                    <a class="btn fas fa-times-circle fa-2x icon-dark float-right"
+                       name="linkRemoveExtraImage"
+                       title="Xóa chi tiết này"
+                    ></a>
+                </div>
+                <div>
+                    <img th:id="'extraThumbnail' + ${status.index}"
+                         th:alt="'Xem trước ảnh bổ sung #' + ${status.index + 1}"
+                         class="img-fluid"
+                         th:src="@{${productImage.imagePath}}">
+                    <input type="file" th:id="'extraImage' + ${status.index + 1}" name="extraImage"
+                           accept="image/png, image/jpeg">
+                </div>
+                <input type="hidden" name="imageIDs" th:id="'imageId' + ${status.index}" th:value="${productImage.id}">
+                <input type="hidden" name="imageNames" th:id="'imageName' + ${status.index}"
+                       th:value="${productImage.name}">
+            </div>
+        </th:block>
+        <div class="col border m-3 p-2" th:id="'divExtraImage' + ${totalExtraImages}">
+            <div th:id="'extraImageHeader' + ${totalExtraImages}"><label>Ảnh bổ sung #[[${totalExtraImages +
+                1}]]:</label></div>
+            <div>
+                <img th:id="'extraThumbnail' + ${totalExtraImages}"
+                     th:alt="'Xem trước ảnh bổ sung #' + ${totalExtraImages + 1}" class="img-fluid"
+                     th:src="@{/images/image-thumbnail.png}">
+                <input type="file" th:id="'extraImage' + ${totalExtraImages + 1}" name="extraImage"
+                       accept="image/png, image/jpeg">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')">
+</head>
+<body>
+	<div th:replace="navigation :: menu_header"></div>
+	<div th:replace="navigation :: search_nav"></div>
+	<div th:replace="breadcrum :: content"></div>
+
+	<div class="row text-center">
+		<th:block th:each="childCat : ${category.children}">
+			<div th:if="${childCat.enabled == true}"
+				class="col">
+				<img th:src="@{${childCat.imagePath}}" height="100"/>
+				<br>
+				<a th:href="@{|/c/${childCat.alias}|}">[[${childCat.name}]]</a>
+			</div>
+		</th:block>
+	</div>
+	<div class="row">&nbsp;</div>
+	<div class="container">
+		<div th:replace="product/product_fragment :: content"></div>
+	</div>
+	<div th:replace="fragments :: pagination('c/' + ${category.alias}, 'sản phẩm')"></div>
+
+	<div th:replace="navigation :: menu_footer"></div>
+</body>
+</html>

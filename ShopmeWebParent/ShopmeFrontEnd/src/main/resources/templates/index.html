@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="fragments :: page_head('Trang chủ', 'none')">
+</head>
+<body>
+	<div th:replace="navigation :: menu_header"></div>
+	<div th:replace="navigation :: search_nav"></div>
+	<h1>Mua sắm theo Danh mục</h1>
+	<div class="row">
+		<div class="col" th:each="category : ${categories}">
+			<div>
+				<img th:src="@{${category.imagePath}}" style="width: 80px" />
+			</div>
+			<div>
+				<a th:href="@{'/c/' + ${category.alias}}">[[${category.name}]]</a>
+			</div>
+		</div>
+	</div>
+	<div th:replace="navigation :: menu_footer"></div>
+</body>
+</html>

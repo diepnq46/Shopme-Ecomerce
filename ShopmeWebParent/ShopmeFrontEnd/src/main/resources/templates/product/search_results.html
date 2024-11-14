@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')">
+</head>
+<body>
+	<div th:replace="navigation :: menu_header"></div>
+	<div th:replace="navigation :: search_nav"></div>
+	<div th:if="${totalItems > 0}" class="container-fluid">
+		<h2>Kết quả tìm kiếm cho '[[${keyword}]]'</h2>
+	</div>
+	<div th:unless="${totalItems > 0}" class="container-fluid">
+		<h2>Không kết quả nào khớp với '[[${keyword}]]'</h2>
+	</div>
+	<div class="row">&nbsp;</div>
+	<div class="container">
+		<div th:replace="product/product_fragment :: content"></div>
+	</div>
+	<div th:replace="fragments :: pagination('search', 'sản phẩm')"></div>
+
+	<div th:replace="navigation :: menu_footer"></div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Trang chủ', 'none')">
+</head>
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu_header"></div>
+	<div>&nbsp;</div>
+	<div class="text-center">
+		<h2>Đăng ký khách hàng</h2>
+		<h4>Bạn đã đăng ký thành không với tư cách là khách hàng</h4>
+		<p>Vui lòng kiểm tra email để xác minh tài khoản</p>
+		<p><a th:href="@{/login}">Đăng nhập</a></p>
+	</div>
+
+
+	<div th:replace="navigation :: menu_footer"></div>
+</div>
+
+</body>
+</html>

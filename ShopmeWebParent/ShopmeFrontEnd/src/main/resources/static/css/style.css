@@ -1,0 +1,41 @@
+*.icon-white {
+    color: white
+}
+
+*.icon-silver {
+    color: silver
+}
+
+*.icon-green {
+    color: green
+}
+
+*.icon-dark {
+    color: gray
+}
+
+*.icon-red {
+    color: red
+}
+
+@media screen and (max-width: 768px) {
+    /* small screen (mobile) */
+    div.full-details {
+        display: none;
+    }
+
+    div.less-details {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    /* large screen (desktop) */
+    div.full-details {
+        display: block;
+    }
+
+    div.less-details {
+        display: none;
+    }
+}

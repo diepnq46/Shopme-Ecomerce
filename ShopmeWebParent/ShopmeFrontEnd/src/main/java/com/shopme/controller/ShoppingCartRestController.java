@@ -7,10 +7,8 @@ import com.shopme.service.ShoppingCartService;
 import com.shopme.util.Utility;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/carts")
@@ -32,6 +30,31 @@ public class ShoppingCartRestController {
             return updatedQuantity + " mặt hàng của sản phẩm này đã được thêm vào giỏ hàng của bạn";
         } catch (ResourceNotFoundException e) {
             return "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng";
+        }
+    }
+
+    @GetMapping("/update/{productId}/{quantity}")
+    public String updateQuantity(@PathVariable("productId") Integer productId,
+                                 @PathVariable("quantity") Integer quantity, HttpServletRequest request) {
+        try {
+            Customer customer = getAuthenticatedCustomer(request);
+            float subTotal = cartService.updateQuantity(quantity, productId, customer);
+
+            return String.valueOf(subTotal);
+        } catch (ResourceNotFoundException e) {
+            return "Bạn cần đăng nhập để thực hện hành động này";
+        }
+    }
+
+    @DeleteMapping("/{productId}")
+    public String deleteCartItem(@PathVariable("productId") Integer productId, HttpServletRequest request) {
+        try {
+            Customer customer = getAuthenticatedCustomer(request);
+            cartService.deleteCartItem(productId, customer);
+
+            return "Sản phẩm đã được xóa khỏi giỏ hàng";
+        } catch (ResourceNotFoundException e) {
+            return "Bạn cần đăng nhập để thực hện hành động này";
         }
     }
 

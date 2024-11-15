@@ -10,11 +10,11 @@
 <div class="row m-1">
     <div class="col-sm-8">
         <th:block th:each="cartItem, status : ${cartItems}" th:with="product = ${cartItem.product}">
-            <div class="row border rounded p-1">
+            <div class="row border rounded p-1" th:id="'row' + ${status.count}">
                 <div class="col-1">
-                    <div>[[${status.count}]]</div>
+                    <div class="divCount">[[${status.count}]]</div>
                     <div>
-                        <a class="fas fa-trash" href=""></a>
+                        <a class="fas fa-trash icon-dark linkRemove" th:href="@{|/carts/${product.id}|}" th:rowNumber="${status.count}"></a>
                     </div>
                 </div>
                 <div></div>
@@ -30,7 +30,7 @@
                     </div>
                     <div>
                         =&nbsp;
-                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span><span class="h4">[[${#numbers.formatDecimal(cartItem.subTotal, 1, THOUSAND_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span><span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span><span th:id="'subTotal' + ${product.id}" class="h4 sub-total">[[${#numbers.formatDecimal(cartItem.subTotal, 1, THOUSAND_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span><span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
                     </div>
                 </div>
             </div>
@@ -39,27 +39,37 @@
             </div>
         </th:block>
     </div>
-    <div class="col-sm-4" th:unless="${#lists.isEmpty(cartItems)}">
+    <div class="col-sm-4" th:unless="${#lists.isEmpty(cartItems)}" id="sectionTotal">
         <div>
             <span class="h3">Tổng thanh toán:</span>
             <div>
-                <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span><span class="h2">[[${#numbers.formatDecimal(estimatedTotal, 1, THOUSAND_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span><span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+                <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span><span id="total" class="h2">[[${#numbers.formatDecimal(estimatedTotal, 1, THOUSAND_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span><span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
             </div>
             <div>
                 &nbsp;
             </div>
             <div>
-                <button class="btn btn-success">Thanh toán</button>
+                <button class="btn btn-success">Đặt hàng</button>
             </div>
         </div>
     </div>
 </div>
-<div class="text-center" th:if="${#lists.isEmpty(cartItems)}">
+<div th:class="'text-center' + ${#lists.isEmpty(cartItems) ? '' : ' d-none'}" id="sectionEmptyCartMessage">
     <h3>Giỏ hàng của bạn hiện đang trống.</h3>
 </div>
 <div th:replace="fragments :: modal_dialog"></div>
 <div th:replace="navigation :: menu_footer"></div>
-<script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
+<script>
+    var contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+
+    decimalDigits = [[${DECIMAL_DIGITS}]];
+    decimalPointType = "[[${DECIMAL_POINT_TYPE}]]";
+    thousandPointType = "[[${THOUSAND_POINT_TYPE}]]";
+</script>
+<script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/shopping_cart.js}"></script>
 <script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
 </body>
 </html>

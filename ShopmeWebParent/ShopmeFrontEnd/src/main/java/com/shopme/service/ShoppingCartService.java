@@ -9,4 +9,8 @@ public interface ShoppingCartService {
     Integer addToCart(Integer quantity, Integer productId, Customer customer);
 
     List<CartItem> getByCustomer(Customer customer);
+
+    float updateQuantity(Integer quantity, Integer productId, Customer customer);
+
+    void deleteCartItem(Integer productId, Customer customer);
 }

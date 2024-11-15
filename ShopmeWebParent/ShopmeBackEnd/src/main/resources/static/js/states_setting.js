@@ -22,7 +22,6 @@ $(document).ready(function () {
     })
 
     dropdownCountriesForState.on("change", function () {
-        debugger;
         loadStates();
     })
 

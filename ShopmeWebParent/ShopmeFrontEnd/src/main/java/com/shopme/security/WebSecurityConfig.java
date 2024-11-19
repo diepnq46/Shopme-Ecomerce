@@ -59,7 +59,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/images/**", "/site-logo/**", "/static/js/**", "/webjars/**").permitAll()
-                        .requestMatchers("/customer", "account-details", "/cart", "/carts/**").authenticated()
+                        .requestMatchers("/customer", "account-details", "/cart", "account-details", "address-book/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2

@@ -15,8 +15,7 @@ public class CountryRestController {
 
     @GetMapping
     public List<Country> getAllCountries() {
-        List<Country> countries = service.getAllCountries();
-        return countries;
+        return service.getAllCountries();
     }
 
     @PostMapping

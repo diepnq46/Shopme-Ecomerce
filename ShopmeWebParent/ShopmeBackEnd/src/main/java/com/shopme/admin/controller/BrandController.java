@@ -29,7 +29,7 @@ public class BrandController {
     private final CategoryService categoryService;
 
 
-    @GetMapping()
+    @GetMapping
     public String listAllBrands() {
         return "redirect:/brands/page/1?sortField=name&sortDir=asc";
     }
@@ -100,6 +100,6 @@ public class BrandController {
         brandService.deleteBrandById(id);
 
         redirectAttributes.addFlashAttribute("message", "Đã xóa nhãn hàng với ID: " + id);
-        return "redirect:/brands";
+        return "redirect:/brands/page/1?sortField=name&sortDir=asc";
     }
 }

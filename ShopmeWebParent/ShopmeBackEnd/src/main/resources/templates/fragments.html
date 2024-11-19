@@ -27,7 +27,7 @@
         <input type="hidden" name="sortField" th:value="${sortField}"/>
         <input type="hidden" name="sortDir" th:value="${sortDir}"/>
         Tìm kiếm:&nbsp;
-        <input type="search" name="keyword" class="form-control" required/>
+        <input type="search" name="keyword" class="form-control" required th:value="${keyword}"/>
         <button type="submit" value="Tìm" class="btn btn-primary">
             <i class="fas fa-search"></i>
         </button>
@@ -95,7 +95,6 @@
     <a class="fas fa-edit fa-2x icon-green" th:href="@{|/${moduleURL}/update/${entityId}|}"
        th:title="${'Cập nhật ' + entityName + ' này'}"></a>
     &nbsp;
-
     <th:block th:if="${visible}">
         <a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{|/${moduleURL}/delete/${entityId}|}"
            th:title="${'Xóa ' + entityName + ' này'}"></a>

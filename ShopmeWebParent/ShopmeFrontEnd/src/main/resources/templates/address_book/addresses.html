@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="fragments :: page_head('Địa chỉ nhận hàng', 'none')">
+</head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu_header"></div>
+    <div th:replace="navigation :: search_nav"></div>
+    <div class="text-center">
+        <h1>Danh sách địa chỉ nhận hàng</h1>
+        <a class="h2" th:href="@{/address-book/new}">Thêm địa chỉ mới</a>
+        <div th:if="${message != null}" class="alert alert-success">
+            [[${message}]]
+        </div>
+        <div th:if="${messageError != null}" class="alert alert-danger">
+            [[${message}]]
+        </div>
+    </div>
+
+    <div class="row m-1">
+        <div class="col-sm-6 mt-3">
+            <div class="card" th:classappend="${isPrimaryDefaultAddress ? 'bg-warning' : ''}">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <b>Địa chỉ chính</b>
+                            <th:block th:if="${isPrimaryDefaultAddress}">
+                                <span class="text-danger">[Mặc định]</span>
+                            </th:block>
+                            <th:block th:unless="${isPrimaryDefaultAddress}">
+                                <a class="text-success" th:href="@{address-book/default/0}">[Chuyển thành mặc định]</a>
+                            </th:block>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <a class="fas fa-edit icon-dark" th:href="@{/account-details}"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    [[${customer.address}]]
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 mt-3" th:each="address, status : ${listAddresses}">
+            <div class="card" th:classappend="${address.defaultAddress ? 'bg-warning' : ''}">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <b>Địa chỉ #[[${status.count}]]</b>
+                            <th:block th:if="${address.defaultAddress}">
+                                <span class="text-danger">[Mặc định]</span>
+                            </th:block>
+                            <th:block th:unless="${address.defaultAddress}">
+                                <a class="text-success" th:href="@{|address-book/default/${address.id}|}">[Chuyển thành mặc định]</a>
+                            </th:block>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <a class="fas fa-edit icon-dark" th:href="@{|/address-book/edit/${address.id}|}"></a>
+                            &nbsp;&nbsp;
+                            <a class="fas fa-trash icon-dark link-delete" th:href="@{|/address-book/delete/${address.id}|}"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    [[${address.address}]]
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div th:replace="fragments :: confirm_modal"></div>
+    <div th:replace="navigation :: menu_footer"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), "địa chỉ")
+        })
+    })
+</script>
+<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
+</body>
+</html>

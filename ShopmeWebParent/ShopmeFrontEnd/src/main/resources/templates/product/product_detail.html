@@ -4,10 +4,11 @@
 <head th:replace="fragments :: page_head(${pageTitle}, 'none')">
 </head>
 <body>
-<div th:replace="navigation :: menu_header"></div>
-<div th:replace="navigation :: search_nav"></div>
-<div th:replace="breadcrum :: content"></div>
+
 <div class="container-fluid">
+    <div th:replace="navigation :: menu_header"></div>
+    <div th:replace="navigation :: search_nav"></div>
+    <div th:replace="breadcrum :: content"></div>
     <div class="row">
         <div class="col-sm">
             <div>
@@ -91,12 +92,13 @@
             </th:block>
         </div>
     </div>
+    <div th:replace="fragments :: modal_dialog"></div>
+
+    <div th:replace="product/images_carousel :: content"></div>
+
+    <div th:replace="navigation :: menu_footer"></div>
 </div>
-<div th:replace="fragments :: modal_dialog"></div>
 
-<div th:replace="product/images_carousel :: content"></div>
-
-<div th:replace="navigation :: menu_footer"></div>
 <script type="text/javascript">
     contextPath = "[[@{/}]]";
     productId = $(".linkMinus").attr("pid");

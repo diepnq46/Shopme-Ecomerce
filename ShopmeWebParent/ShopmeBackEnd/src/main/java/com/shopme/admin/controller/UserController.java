@@ -50,7 +50,7 @@ public class UserController {
         return "users/user_form";
     }
 
-    @PostMapping()
+    @PostMapping
     public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes,
                            @RequestParam("image") MultipartFile multipartFile) throws IOException {
         if (!multipartFile.isEmpty()) {
@@ -100,7 +100,7 @@ public class UserController {
                              RedirectAttributes redirectAttributes) {
         service.deleteUserById(userId);
         redirectAttributes.addFlashAttribute("message", "Đã xóa người dùng với ID: " + userId);
-        return "redirect:/users";
+        return "redirect:/users/page/1?sortField=firstName&sortDir=asc";
     }
 
     @GetMapping("/{userId}/enabled/{status}")
@@ -112,7 +112,7 @@ public class UserController {
         service.updateEnabledStatus(id, enabled);
         redirectAttributes.addFlashAttribute("message", "Người dùng với ID " + id + status + " thành công!");
 
-        return "redirect:/users";
+        return "redirect:/users/page/1?sortField=firstName&sortDir=asc";
     }
 
     @GetMapping("/page/{pageNum}")

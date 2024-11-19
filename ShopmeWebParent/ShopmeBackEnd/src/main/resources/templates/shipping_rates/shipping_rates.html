@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments :: page_head('Quản lý nhãn hàng - Shopme Admin', 'none')"></head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+
+    <div>
+        <h2>Quản lý Giá vận chuyển</h2>
+        <a th:href="@{/shipping-rates/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2" title="Tạo giá mới"></a>
+
+        <a th:href="@{/shipping-rates/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2" title="Xuất ra CSV"></a>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div th:if="${messageError != null}" class="alert alert-danger text-center">
+        [[${messageError}]]
+    </div>
+    <div th:replace="fragments :: search_form('shipping-rates')">
+
+    </div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-white" th:replace="fragments :: column_link('shipping-rates', 'id', 'ID')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('shipping-rates', 'country', 'Quốc gia')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('shipping-rates', 'state', 'Vùng/Tỉnh')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('shipping-rates', 'rate', 'Tỉ giá')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('shipping-rates', 'days', 'Thời hạn giao (ngày)')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('shipping-rates', 'codSupported', 'Hỗ trợ COD')"></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rate : ${shippingRates}">
+                <td>[[${rate.id}]]</td>
+                <td>[[${rate.country.name}]]</td>
+                <td>[[${rate.state}]]</td>
+                <td>[[${rate.rate}]]</td>
+                <td>[[${rate.days}]]</td>
+                <td>
+                    <a th:if="${rate.codSupported == true}" class="fas fa-hand-holding-usd fa-2x icon-green"
+                       th:href="@{|/shipping-rates/${rate.id}/update-cod/false|}"
+                       th:title="${'Tắt hỗ trợ COD với địa điểm này'}">
+                    </a>
+                    <a th:unless="${rate.codSupported == true}" class="fas fa-hand-holding-usd fa-2x icon-dark"
+                       th:href="@{|/shipping-rates/${rate.id}/update-cod/true|}"
+                       th:title="${'Bật hỗ trợ COD với địa điểm này'}">
+                    </a>
+                </td>
+                <td>
+                    <div th:replace="fragments :: edit('shipping-rates', 'giá vận chuyển', ${rate.id} , true)"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments :: pagination('shipping-rates', 'giá vận chuyển')"></div>
+    <div th:replace="fragments :: footer"></div>
+
+
+    <div th:replace="modal_fragments :: confirm_modal"></div>
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/shipping-rates}]]";
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), "bảng giá");
+        });
+    });
+</script>
+</body>
+</html>

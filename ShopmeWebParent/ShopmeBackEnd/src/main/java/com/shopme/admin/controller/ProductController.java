@@ -114,7 +114,7 @@ public class ProductController {
         String status = enabled ? " được kích hoạt" : " vô hiệu hóa";
 
         redirectAttributes.addFlashAttribute("message", "Sản phẩm với ID: " + id + status + " thành công!");
-        return "redirect:/products";
+        return "redirect:/products/page/1?sortField=name&sortDir=asc";
     }
 
     @GetMapping("/delete/{id}")
@@ -125,7 +125,7 @@ public class ProductController {
         FileUploadUtil.removeDir(productExtraImagesDir);
         FileUploadUtil.removeDir(productImagesDir);
         redirectAttributes.addFlashAttribute("message", "Sản phẩm với ID: " + id + " được xóa thành công!");
-        return "redirect:/products";
+        return "redirect:/products/page/1?sortField=name&sortDir=asc";
     }
 
     @GetMapping("/update/{id}")
@@ -171,7 +171,7 @@ public class ProductController {
             return "products/product_detail_modal";
         } catch (ResourceNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
-            return "redirect:/products";
+            return "redirect:/products/page/1?sortField=name&sortDir=asc";
         }
     }
 

@@ -6,76 +6,51 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "customers")
+@Table(name = "addresses")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 45, nullable = false, unique = true)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private  Country country;
 
-    @Column(length = 64, nullable = false)
-    private String password;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
-    @Column(length = 45, nullable = false)
+    @Column(name = "first_name", length = 45)
     private String firstName;
 
-    @Column(length = 45, nullable = false)
+    @Column(name = "last_name", length = 45)
     private String lastName;
 
-    @Column(length = 15, nullable = false)
+    @Column(name = "phone_number", length = 15, nullable = false)
     private String phoneNumber;
 
-    @Column(length = 64, nullable = false)
+    @Column(name = "address_line1", length = 64, nullable = false)
     private String addressLine1;
 
-    @Column(length = 64)
+    @Column(name = "address_line2", length = 64)
     private String addressLine2;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 45)
     private String city;
 
     @Column(length = 45, nullable = false)
     private String state;
 
-    @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
-    private Country country;
-
-    @Column(length = 10, nullable = false)
+    @Column(name = "postal_code", length = 10, nullable = false)
     private String postalCode;
 
-    @Column(nullable = false)
-    private Date createdTime;
-
-    private boolean enabled;
-
-    @Column(length = 64)
-    private String verificationCode;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "authentication_type", length = 10)
-    private AuthenticationType authenticationType;
-
-    @Column(name = "reset_password_token", length = 30)
-    private String resetPasswordToken;
-
-    public Customer(Integer id) {
-        this.id = id;
-    }
-
-    @Transient
-    public String getFullName() {
-        return lastName + " " + firstName;
-    }
+    @Column(name = "default_address", nullable = false)
+    private boolean defaultAddress;
 
     @Transient
     public String getAddress() {

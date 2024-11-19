@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments :: page_head(${pageTitle + ' - Shopme Admin'}, 'none')">
+</head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+
+    <div>
+        <h2>Quản lý Giá vận chuyển | [[${pageTitle}]]</h2>
+    </div>
+
+    <form th:action="@{/shipping-rates}" method="post" style="max-width: 700px; margin: 0 auto" th:object="${shippingRate}"
+          onsubmit="return checkUnique(this)">
+        <input type="hidden" id="id" name="id" th:value="*{id}">
+        <div class="border border-secondary rounded p-3">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Quốc gia: </label>
+                <div class="col-sm-8">
+                    <select class="form-control" th:field="*{country}">
+                        <th:block th:each="country : ${countries}">
+                            <option th:value="${country.id}">[[${country.name}]]</option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Vùng/Tỉnh:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{state}" required minlength="3" maxlength="45" list="dataListStates"/>
+                    <datalist id="dataListStates"></datalist>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Tỉ giá:</label>
+                <div class="col-sm-8">
+                    <input type="number" step="0.01" class="form-control" th:field="*{rate}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Thời hạn giao (ngày):</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" th:field="*{days}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Hỗ trợ COD:</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" th:field="*{codSupported}">
+                </div>
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Lưu" class="btn btn-primary m-3"/>
+                <input type="button" value="Thoát" class="btn btn-secondary" id="buttonCancel"/>
+            </div>
+        </div>
+    </form>
+
+    <div th:replace="modal_fragments :: warning_modal"></div>
+
+    <div th:replace="fragments :: footer"></div>
+
+</div>
+<script type="text/javascript">
+    contextPath = "[[@{/}]]"
+    moduleURL = "[[@{/shipping-rates}]]";
+    $(document).ready(function () {
+        $("#country").on("change", function () {
+            loadStates();
+        })
+        loadStates();
+    })
+    function loadStates() {
+        selectedCountry = $("#country option:selected")
+        countryId = selectedCountry.val();
+        url = contextPath + "states/list-by-country/" + countryId;
+        dataListStates = $("#dataListStates");
+
+        $.get(url, function (responseJson) {
+            dataListStates.empty();
+
+            $.each(responseJson, function (index, state) {
+                $("<option>").val(state.name).text(state.name).appendTo(dataListStates);
+            })
+        })
+    }
+    function checkUnique(form) {
+        rateId = $("#id").val();
+        countryId = $("#country").val();
+        state = $("#state").val();
+        csrfValue = $("input[name='_csrf']").val();
+        url = "[[@{/shipping-rates/check-unique}]]";
+
+        params = {id: rateId, countryId: countryId, state: state, _csrf: csrfValue};
+
+        $.post(url, params, function (response) {
+            if (response === "OK") {
+                form.submit();
+            } else if (response === "DUPLICATED") {
+                showWarningModal("Bảng giá này đã tồn tại!");
+            } else {
+                showErrorModal("Không xác định được phản hồi từ server!");
+            }
+        }).fail(function () {
+            showErrorModal("Không thể kết nối tới server");
+        })
+        return false;
+    }
+
+    function showModalDialog(title, message) {
+        $("#modalTitle").text(title);
+        $("#modalBody").text(message);
+        $("#modalDialog").modal();
+    }
+
+    function showErrorModal(message) {
+        showModalDialog("Error", message)
+    }
+
+    function showWarningModal(message) {
+        showModalDialog("Warning", message);
+    }
+</script>
+</body>
+</html>

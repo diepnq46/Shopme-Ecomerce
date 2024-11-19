@@ -13,13 +13,6 @@ $(document).ready(function () {
     loadStatesForCountry();
 })
 
-function checkPasswordMatch(confirmPassword) {
-    if (confirmPassword.value !== $("#password").val()) {
-        confirmPassword.setCustomValidity("Passwords do not match");
-    } else {
-        confirmPassword.setCustomValidity("");
-    }
-}
 
 function loadStatesForCountry() {
     selectedCountry = $("#country option:selected")

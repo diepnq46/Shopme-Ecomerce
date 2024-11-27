@@ -50,7 +50,20 @@
                 &nbsp;
             </div>
             <div>
-                <button class="btn btn-success">Đặt hàng</button>
+                <div th:if="${shippingSupported}">
+                    <button class="btn btn-success">Đặt hàng</button>
+                </div>
+                <div th:unless="${shippingSupported}">
+                    <div>
+                        <span class="h5 text-warning">Không hỗ trợ vận chuyển tới địa chỉ của bạn</span>
+                    </div>
+                    <div th:if="${usePrimaryAddressAsDefault}">
+                        <a th:href="@{/account-details(redirect=cart)}" class="h6">Cập nhật địa chỉ</a>
+                    </div>
+                    <div>
+                        <a th:href="@{/address-book(redirect=cart)}" class="h5">Sử dụng địa chỉ khác</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

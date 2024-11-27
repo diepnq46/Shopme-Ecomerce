@@ -48,4 +48,9 @@ public class AddressServiceImpl implements AddressService {
 
         addressRepo.setNonDefaultAddress(addressId, customer.getId());
     }
+
+    @Override
+    public Address getDefaultAddress(Customer customer) {
+        return addressRepo.findDefaultByCustomer(customer.getId());
+    }
 }

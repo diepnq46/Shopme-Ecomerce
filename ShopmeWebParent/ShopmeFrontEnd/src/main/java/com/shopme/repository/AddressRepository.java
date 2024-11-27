@@ -28,4 +28,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     @Modifying
     @Query("UPDATE Address a SET a.defaultAddress = false WHERE a.customer.id = ?2 AND a.id != ?1")
     void setNonDefaultAddress(Integer defaultAddressId, Integer customerId);
+
+    @Query("SELECT a FROM Address a WHERE a.customer.id = ?1 AND a.defaultAddress = true")
+    Address findDefaultByCustomer(Integer customerId);
 }

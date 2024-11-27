@@ -16,4 +16,6 @@ public interface AddressService {
     Address saveAddress(Address address);
 
     void setDefaultAddress(Integer addressId, Customer customer);
+
+    Address getDefaultAddress(Customer customer);
 }

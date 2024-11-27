@@ -43,7 +43,7 @@ public class Address {
     @Column(length = 45)
     private String city;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 45)
     private String state;
 
     @Column(name = "postal_code", length = 10, nullable = false)
@@ -69,5 +69,20 @@ public class Address {
         if(!phoneNumber.isEmpty()) {address += ". Điện thoại: " + phoneNumber;}
 
         return address;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", country=" + country.getName() +
+                ", customer=" + customer +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", defaultAddress=" + defaultAddress +
+                '}';
     }
 }

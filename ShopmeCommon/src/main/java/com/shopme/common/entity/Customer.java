@@ -43,7 +43,7 @@ public class Customer {
     @Column(length = 45, nullable = false)
     private String city;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 45)
     private String state;
 
     @ManyToOne

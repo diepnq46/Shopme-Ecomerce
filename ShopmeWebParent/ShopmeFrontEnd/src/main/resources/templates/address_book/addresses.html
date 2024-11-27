@@ -30,7 +30,8 @@
                                 <span class="text-danger">[Mặc định]</span>
                             </th:block>
                             <th:block th:unless="${isPrimaryDefaultAddress}">
-                                <a class="text-success" th:href="@{address-book/default/0}">[Chuyển thành mặc định]</a>
+                                <a th:if="${param.redirect}" th:with="redirect = ${param.redirect}" class="text-success" th:href="@{'/address-book/default/0?redirect=' + ${redirect}}">[Chuyển thành mặc định]</a>
+                                <a th:unless="${param.redirect}" class="text-success" th:href="@{/address-book/default/0}">[Chuyển thành mặc định]</a>
                             </th:block>
                         </div>
                         <div class="col d-flex justify-content-end">
@@ -53,7 +54,8 @@
                                 <span class="text-danger">[Mặc định]</span>
                             </th:block>
                             <th:block th:unless="${address.defaultAddress}">
-                                <a class="text-success" th:href="@{|address-book/default/${address.id}|}">[Chuyển thành mặc định]</a>
+                                <a th:if="${param.redirect}" th:with="redirect = ${param.redirect}" class="text-success" th:href="@{'/address-book/default/' + ${address.id} + '?redirect=' + ${redirect}}">[Chuyển thành mặc định]</a>
+                                <a th:unless="${param.redirect}" class="text-success" th:href="@{|/address-book/default/${address.id}|}">[Chuyển thành mặc định]</a>
                             </th:block>
                         </div>
                         <div class="col d-flex justify-content-end">

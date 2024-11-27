@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments :: page_head('Quản lý đơn hàng hàng - Shopme Admin', 'none')"></head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu"></div>
+
+    <div>
+        <h2>Quản lý Đơn hàng</h2>
+
+        <a th:href="@{/shipping-rates/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2" title="Xuất ra CSV"></a>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div th:if="${messageError != null}" class="alert alert-danger text-center">
+        [[${messageError}]]
+    </div>
+    <div th:replace="fragments :: search_form('orders')">
+
+    </div>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-white" th:replace="fragments :: column_link('orders', 'id', 'ID')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('orders', 'customer', 'Khách hàng')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('orders', 'total', 'Tổng tiền')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('orders', 'orderTime', 'Thời gian đặt')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('orders', 'destination', 'Địa chỉ nhận')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('orders', 'paymentMethod', 'Phương thức thanh toán')"></th>
+                <th class="text-white" th:replace="fragments :: column_link('orders', 'status', 'Trạng thái')"></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td>[[${order.id}]]</td>
+                <td><a class="customer-detail" th:href="@{|/customers/detail/${order.customer.id}|}">[[${order.customer.fullName}]]</a></td>
+                <td>
+                    <div th:replace="fragments :: price_fragment(${order.total})"></div>
+                </td>
+                <td>
+                    <span th:replace="fragments :: formatTime(${order.orderTime})"></span>
+                </td>
+                <td>[[${order.destination}]]</td>
+                <td>[[${order.paymentMethod}]]</td>
+                <td>[[${order.orderStatus}]]</td>
+                <td>
+                    <a class="fas fa-file-alt fa-2x icon-green link-detail"
+                       th:href="@{'/orders/detail/' + ${order.id}}"
+                       title="Xem chi tiết đơn hàng này"></a>&nbsp;&nbsp;
+                    <div th:replace="fragments :: edit('orders', 'đơn hàng', ${order.id} , true)"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="customerDetailModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="orderDetailModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: pagination('orders', 'đơn hàng')"></div>
+    <div th:replace="fragments :: footer"></div>
+
+
+    <div th:replace="modal_fragments :: confirm_modal"></div>
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{orders}]]";
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), "đơn hàng");
+        });
+    });
+
+    $(".customer-detail").on("click", function (e) {
+        e.preventDefault();
+        linkDetailURL = $(this).attr("href");
+
+        $("#customerDetailModal").modal("show").find(".modal-content").load(linkDetailURL);
+    });
+    $(".link-detail").on("click", function (e) {
+        e.preventDefault();
+        linkDetailURL = $(this).attr("href");
+
+        $("#orderDetailModal").modal("show").find(".modal-content").load(linkDetailURL);
+    });
+</script>
+</body>
+</html>

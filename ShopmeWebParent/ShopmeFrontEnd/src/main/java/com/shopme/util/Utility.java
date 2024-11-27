@@ -18,7 +18,7 @@ public class Utility {
                 principal instanceof RememberMeAuthenticationToken) {
             customerEmail = request.getUserPrincipal().getName();
         } else if (principal instanceof OAuth2AuthenticationToken) {
-            OAuth2AuthenticationToken oauth2Token = ((OAuth2AuthenticationToken) principal);
+            OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
             CustomerOauth2User oauth2User = (CustomerOauth2User) oauth2Token.getPrincipal();
 
             customerEmail = oauth2User.getEmail();

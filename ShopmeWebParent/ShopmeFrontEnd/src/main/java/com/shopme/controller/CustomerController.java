@@ -112,8 +112,14 @@ public class CustomerController {
         updateNameForAuthenticatedCustomer(customer, request);
 
         redirectAttributes.addFlashAttribute("message", "Cập nhật thông tin thành công");
+        String redirectURL = "redirect:/account-details";
+        String redirectOption = request.getParameter("redirect");
 
-        return "redirect:/account-details";
+        if ("cart".equals(redirectOption)) {
+            redirectURL = "redirect:/cart";
+        }
+
+        return redirectURL;
     }
 
     private void updateNameForAuthenticatedCustomer(Customer customer, HttpServletRequest request) {

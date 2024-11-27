@@ -58,7 +58,6 @@ public class WebSecurityConfig {
     public SecurityFilterChain configureHttpSecurity(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/images/**", "/site-logo/**", "/static/js/**", "/webjars/**").permitAll()
                         .requestMatchers("/customer", "account-details", "/cart", "account-details", "address-book/**").authenticated()
                         .anyRequest().permitAll()
                 )

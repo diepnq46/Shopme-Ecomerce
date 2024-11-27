@@ -40,4 +40,14 @@ public class AddressRepositoryTest {
 
         assertThat(savedAddress.getId()).isGreaterThan(0);
     }
+
+    @Test
+    public void testFindDefaultAddressByCustomer() {
+        int customerId = 5;
+        Address address = repo.findDefaultByCustomer(customerId);
+
+        System.out.println(address);
+
+        assertThat(address).isNotNull();
+    }
 }

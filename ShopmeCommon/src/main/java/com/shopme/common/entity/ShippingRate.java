@@ -12,11 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShippingRate {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class ShippingRate extends IdBasedEntity{
     @Column(nullable = false)
     private float rate;
 

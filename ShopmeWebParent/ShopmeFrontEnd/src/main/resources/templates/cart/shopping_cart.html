@@ -51,7 +51,10 @@
             </div>
             <div>
                 <div th:if="${shippingSupported}">
-                    <button class="btn btn-success">Đặt hàng</button>
+                    <form th:action="@{/checkout}">
+                        <button type="submit" class="btn btn-success">Đặt hàng</button>
+                    </form>
+
                 </div>
                 <div th:unless="${shippingSupported}">
                     <div>

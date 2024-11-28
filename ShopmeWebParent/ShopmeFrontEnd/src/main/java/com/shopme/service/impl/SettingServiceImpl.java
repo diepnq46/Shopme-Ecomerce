@@ -1,8 +1,8 @@
 package com.shopme.service.impl;
 
 import com.shopme.common.entity.Currency;
-import com.shopme.common.entity.Setting;
-import com.shopme.common.entity.SettingCategory;
+import com.shopme.common.entity.setting.Setting;
+import com.shopme.common.entity.setting.SettingCategory;
 import com.shopme.entity.EmailSettingBag;
 import com.shopme.repository.CurrencyRepository;
 import com.shopme.repository.SettingRepository;

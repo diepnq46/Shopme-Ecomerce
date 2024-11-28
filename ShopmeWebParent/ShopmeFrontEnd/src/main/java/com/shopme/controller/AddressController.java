@@ -72,6 +72,8 @@ public class AddressController {
         String redirectOption = request.getParameter("redirect");
         if ("cart".equals(redirectOption)) {
             redirectURL = "redirect:/cart";
+        }else if("checkout".equals(redirectOption)) {
+            redirectURL = "redirect:/checkout";
         }
 
         return redirectURL;
@@ -83,7 +85,6 @@ public class AddressController {
         addressService.deleteAddress(addressId, customer);
 
         redirectAttributes.addFlashAttribute("message", "Xóa thành công địa chỉ với ID: " + addressId);
-
         return "redirect:/address-book";
     }
 

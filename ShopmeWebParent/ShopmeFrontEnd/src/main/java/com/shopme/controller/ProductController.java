@@ -1,7 +1,7 @@
 package com.shopme.controller;
 
 import com.shopme.common.entity.Category;
-import com.shopme.common.entity.Product;
+import com.shopme.common.entity.product.Product;
 import com.shopme.common.exception.ResourceNotFoundException;
 import com.shopme.service.CategoryService;
 import com.shopme.service.ProductService;

@@ -1,7 +1,7 @@
 package com.shopme.admin.service;
 
 import com.shopme.admin.paging.PagingAndSortingHelper;
-import com.shopme.common.entity.Order;
+import com.shopme.common.entity.order.Order;
 import com.shopme.common.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 

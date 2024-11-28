@@ -1,6 +1,6 @@
 package com.shopme.service.impl;
 
-import com.shopme.common.entity.Product;
+import com.shopme.common.entity.product.Product;
 import com.shopme.common.exception.ResourceNotFoundException;
 import com.shopme.repository.ProductRepository;
 import com.shopme.service.ProductService;

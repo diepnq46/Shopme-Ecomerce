@@ -3,7 +3,7 @@ package com.shopme.admin.service.impl;
 import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.admin.repository.ProductRepository;
 import com.shopme.admin.service.ProductService;
-import com.shopme.common.entity.Product;
+import com.shopme.common.entity.product.Product;
 import com.shopme.common.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
-package com.shopme.common.entity;
+package com.shopme.common.entity.product;
 
+import com.shopme.common.entity.IdBasedEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,11 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class ProductDetail extends IdBasedEntity {
     @Column(length = 255, nullable = false)
     private String name;
 
@@ -27,7 +24,8 @@ public class ProductDetail {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public ProductDetail(String name, String value, Product product) {
+    public ProductDetail(Integer id, String name, String value, Product product) {
+        super(id);
         this.name = name;
         this.value = value;
         this.product = product;

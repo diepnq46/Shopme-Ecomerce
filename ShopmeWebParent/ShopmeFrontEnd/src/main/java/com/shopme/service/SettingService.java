@@ -1,7 +1,7 @@
 package com.shopme.service;
 
 import com.shopme.common.entity.Currency;
-import com.shopme.common.entity.Setting;
+import com.shopme.common.entity.setting.Setting;
 import com.shopme.entity.EmailSettingBag;
 
 import java.util.List;

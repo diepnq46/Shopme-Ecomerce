@@ -2,8 +2,8 @@ package com.shopme.admin.service;
 
 import com.shopme.common.entity.Currency;
 import com.shopme.common.entity.GeneralSettingBag;
-import com.shopme.common.entity.Setting;
-import com.shopme.common.entity.SettingCategory;
+import com.shopme.common.entity.setting.Setting;
+import com.shopme.common.entity.setting.SettingCategory;
 
 import java.util.List;
 

@@ -10,7 +10,7 @@ import com.shopme.admin.util.FileUploadUtil;
 import com.shopme.admin.util.ProductSaveHelper;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Category;
-import com.shopme.common.entity.Product;
+import com.shopme.common.entity.product.Product;
 import com.shopme.common.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,8 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
-
-import static com.shopme.admin.service.impl.ProductServiceImpl.PRODUCTS_PER_PAGE;
 
 @Controller
 @RequestMapping("/products")

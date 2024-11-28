@@ -1,6 +1,6 @@
 package com.shopme.service;
 
-import com.shopme.common.entity.Product;
+import com.shopme.common.entity.product.Product;
 import com.shopme.common.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 

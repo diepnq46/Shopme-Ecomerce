@@ -38,9 +38,7 @@ public class BrandController {
     public String listBrandPage(@PathVariable Integer pageNum,
                                 @PagingAndSortingParam(listName = "brands") PagingAndSortingHelper helper) {
         Page<Brand> brandPage = brandService.getBrandsByPage(pageNum, helper);
-
         helper.updateModelAttribute(pageNum, brandPage);
-
         return "brands/brands";
     }
 

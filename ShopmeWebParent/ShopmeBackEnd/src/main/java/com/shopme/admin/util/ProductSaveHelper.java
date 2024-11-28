@@ -1,8 +1,8 @@
 package com.shopme.admin.util;
 
 import com.shopme.admin.controller.ProductController;
-import com.shopme.common.entity.Product;
-import com.shopme.common.entity.ProductImage;
+import com.shopme.common.entity.product.Product;
+import com.shopme.common.entity.product.ProductImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;

@@ -15,11 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class Country extends IdBasedEntity{
     @Column(nullable = false, length = 45)
     private String name;
 

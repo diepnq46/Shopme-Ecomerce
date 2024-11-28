@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -14,14 +15,10 @@ import java.util.Set;
 @Table(name = "brands")
 @Getter
 @Setter
-@Service
 @NoArgsConstructor
 @AllArgsConstructor
-public class Brand {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+@SuperBuilder
+public class Brand extends IdBasedEntity{
     @Column(nullable = false, length = 45, unique = true)
     private String name;
 

@@ -1,6 +1,6 @@
 package com.shopme.configuration;
 
-import com.shopme.common.entity.Setting;
+import com.shopme.common.entity.setting.Setting;
 import com.shopme.service.SettingService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

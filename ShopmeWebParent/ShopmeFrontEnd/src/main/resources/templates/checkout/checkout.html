@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="fragments :: page_head('Trang chủ', 'none')">
+</head>
+<body>
+<div class="container-fluid">
+    <div th:replace="navigation :: menu_header"></div>
+    <div th:replace="navigation :: search_nav"></div>
+    <h1 class="text-center">Đặt hàng</h1>
+
+    <div class="row m-1">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header"><h5>Thông tin vận chuyển</h5></div>
+                <div class="card-body">
+                    <p>
+                        <b>Vận chuyển tới:</b>&nbsp; [[${shippingAddress}]]
+                        <a th:href="@{/address-book(redirect=checkout)}">[Chọn địa chỉ khác]</a>
+                    </p>
+                    <p>
+                        <b>Nhận hàng sau:</b>&nbsp; [[${checkoutInfo.deliverDays + ' ngày'}]]
+                    </p>
+                    <p>
+                        <b>Ngày nhận hàng dự kiến:</b>&nbsp; [[${#dates.format(checkoutInfo.deliverDate, 'E, dd MM yyyy')}]]
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><h5>Phương thức vận chuyển</h5></div>
+                <div class="card-body">
+                    <div th:if="${checkoutInfo.codSupported}">
+                        <p>
+                            <input type="radio" /> Thanh toán khi nhận hàng
+                            &nbsp;
+                            <button class="btn btn-primary">Đặt hàng COD</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header"><h5>Tóm tắt đơn hàng</h5></div>
+                <div class="card-body">
+                    <div>
+                        <table>
+                            <th:block th:each="item : ${cartItems}">
+                                <tr th:with="product = ${item.product}">
+                                    <td>[[${item.quantity}]] X &nbsp;&nbsp;</td>
+                                    <td width="70%">
+                                        <a th:href="@{'/p/' + ${product.alias}}" target="_blank">
+                                            [[${product.shortName}]]
+                                        </a>
+                                        <div>
+                                            <small>Phí vận chuyển: <div th:replace="fragments :: price_fragment(${item.shippingCost})"></div></small>
+                                        </div>
+                                    </td>
+                                    <td><div th:replace="fragments :: price_fragment(${item.subTotal})"></div></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><hr></td>
+                                </tr>
+                            </th:block>
+                        </table>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">Tổng sản phẩm:</div>
+                        <div class="col"> <div th:replace="fragments :: price_fragment(${checkoutInfo.productTotal})"></div></div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">Tổng phí vận chuyển:</div>
+                        <div class="col"> <div th:replace="fragments :: price_fragment(${checkoutInfo.shippingCostTotal})"></div></div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">Tổng thanh toán:</div>
+                        <div class="col"><b><div th:replace="fragments :: price_fragment(${checkoutInfo.paymentTotal})"></b></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="navigation :: menu_footer"></div>
+</div>
+
+</body>
+</html>

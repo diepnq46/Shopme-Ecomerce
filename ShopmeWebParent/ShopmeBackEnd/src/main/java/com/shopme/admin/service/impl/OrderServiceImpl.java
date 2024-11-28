@@ -3,7 +3,7 @@ package com.shopme.admin.service.impl;
 import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.admin.repository.OrderRepository;
 import com.shopme.admin.service.OrderService;
-import com.shopme.common.entity.Order;
+import com.shopme.common.entity.order.Order;
 import com.shopme.common.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

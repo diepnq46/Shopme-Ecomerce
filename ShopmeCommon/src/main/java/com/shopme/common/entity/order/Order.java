@@ -1,5 +1,7 @@
-package com.shopme.common.entity;
+package com.shopme.common.entity.order;
 
+import com.shopme.common.entity.AbstractAddress;
+import com.shopme.common.entity.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,35 +18,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "first_name", length = 45)
-    private String firstName;
-
-    @Column(name = "last_name", length = 45)
-    private String lastName;
-
-    @Column(name = "phone_number", length = 15, nullable = false)
-    private String phoneNumber;
-
-    @Column(name = "address_line1", length = 64, nullable = false)
-    private String addressLine1;
-
-    @Column(name = "address_line2", length = 64)
-    private String addressLine2;
-
-    @Column(length = 45)
-    private String city;
-
-    @Column(length = 45, nullable = false)
-    private String state;
-
-    @Column(name = "postal_code", length = 10, nullable = false)
-    private String postalCode;
-
+public class Order extends AbstractAddress {
     @Column(length = 45, nullable = false)
     private String country;
 
